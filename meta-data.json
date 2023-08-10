@@ -2,10 +2,10 @@
    {
    "id": 1,
    "subject": "gzip",
-   "bug_id": "a1d3d4019d",
+   "bug_id": "bug-1",
    "source_file": "gzip.c",
-   "failing_test": [6],
-   "passing_test": [2,3],
+   "failing_test": ["6"],
+   "passing_test": ["2","3"],
    "count_neg": 1,
    "count_pos": 2,
    "test_timeout": 5,
