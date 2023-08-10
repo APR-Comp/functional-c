@@ -1,0 +1,11 @@
+index fc2e7dc..8543128 100644
+--- a/gzip.c
++++ b/gzip.c
+@@ -650,6 +650,7 @@ local void treat_stdin()
+     clear_bufs(); /* clear input and output buffers */
+     to_stdout = 1;
+     part_nb = 0;
++    ifd = fileno(stdin);
+
+     if (decompress) {
+ 	method = get_method(ifd);
