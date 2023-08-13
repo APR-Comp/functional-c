@@ -7,13 +7,6 @@ dir_name=/experiment/$benchmark_name/$project_name/$bug_id
 current_dir=$PWD
 mkdir -p $dir_name
 cd $dir_name
-mkdir dev-patch
-
-
-current_dir=$PWD
-mkdir -p $dir_name
-cd $dir_name
-mkdir dev-patch
 
 project_url=https://github.com/python/cpython
 bug_commit_id=a29a7b9
