@@ -24,6 +24,9 @@ git clone $project_url src
 cd src
 git checkout $bug_commit_id
 
+# copy new test case
+cp $script_dir/test-case.phpt $dir_name/src/tests/lang/zend_throw_exception_001.phpt
+
 # copy developer fix
 cp -rf $script_dir/dev-fix $dir_name/dev-patch
 

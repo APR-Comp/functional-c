@@ -15,7 +15,6 @@ if [[ -n "${CFLAGS}" ]]; then
   PROJECT_CFLAGS="${PROJECT_CFLAGS} ${CFLAGS}"
 fi
 
-fi
 if [[ -n "${LDFLAGS}" ]]; then
   PROJECT_LDFLAGS="${PROJECT_LDFLAGS} ${LDFLAGS}"
 fi
