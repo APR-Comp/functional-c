@@ -1,24 +1,25 @@
---- a/Lib/test/test_csv.py
-+++ b/Lib/test/test_csv.py
-@@ -762,6 +762,10 @@ def test_write_field_not_in_field_names_raise(self):
-         dictrow = {'f0': 0, 'f1': 1, 'f2': 2, 'f3': 3}
-         self.assertRaises(ValueError, csv.DictWriter.writerow, writer, dictrow)
+--- a/Lib/test/test_syntax.py
++++ b/Lib/test/test_syntax.py
+@@ -2145,6 +2145,22 @@ def test_error_parenthesis(self):
+         for paren in ")]}":
+             self._check_error(paren + "1 + 2", f"unmatched '\\{paren}'")
 
-+        # see bpo-44512 (differently cased 'raise' should not result in 'ignore')
-+        writer = csv.DictWriter(fileobj, ['f1', 'f2'], extrasaction="RAISE")
-+        self.assertRaises(ValueError, csv.DictWriter.writerow, writer, dictrow)
++        # Some more complex examples:
++        code = """\
++func(
++    a=["unclosed], # Need a quote in this comment: "
++    b=2,
++)
++"""
++        self._check_error(code, "parenthesis '\\)' does not match opening parenthesis '\\['")
 +
-     def test_write_field_not_in_field_names_ignore(self):
-         fileobj = StringIO()
-         writer = csv.DictWriter(fileobj, ['f1', 'f2'], extrasaction="ignore")
-@@ -769,6 +773,10 @@ def test_write_field_not_in_field_names_ignore(self):
-         csv.DictWriter.writerow(writer, dictrow)
-         self.assertEqual(fileobj.getvalue(), "1,2\r\n")
++    def test_error_string_literal(self):
++
++        self._check_error("'blech", "unterminated string literal")
++        self._check_error('"blech', "unterminated string literal")
++        self._check_error("'''blech", "unterminated triple-quoted string literal")
++        self._check_error('"""blech', "unterminated triple-quoted string literal")
++
+     def test_invisible_characters(self):
+         self._check_error('print\x17("Hello")', "invalid non-printable character")
 
-+        # bpo-44512
-+        writer = csv.DictWriter(fileobj, ['f1', 'f2'], extrasaction="IGNORE")
-+        csv.DictWriter.writerow(writer, dictrow)
-+
-     def test_dict_reader_fieldnames_accepts_iter(self):
-         fieldnames = ["a", "b", "c"]
-         f = StringIO()
