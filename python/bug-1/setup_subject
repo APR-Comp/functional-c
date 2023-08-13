@@ -32,4 +32,3 @@ patch -f -p 1 < $script_dir/update-test.diff
 # copy developer fix
 cp -rf $script_dir/dev-fix $dir_name/dev-patch
 
-./buildconf
