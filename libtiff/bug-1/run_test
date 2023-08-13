@@ -1,0 +1,40 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+TEST_ID=$1
+EXIT_CODE=1
+
+test_cases=('ascii_tag' 'long_tag' 'short_tag' 'strip_rw' 'rewrite' 'tiffcp-g3.sh' 'tiffcp-g3-1d.sh' 'tiffcp-g3-1d-fill.sh' 'tiffcp-g3-2d.sh' 'tiffcp-g3-2d-fill.sh' 'tiffcp-g4.sh' 'tiffcp-thumbnail.sh' 'tiffdump.sh' 'tiffinfo.sh' 'tiffcp-split.sh' 'tiffcp-split-join.sh' 'tiff2ps-PS1.sh' 'tiff2ps-PS2.sh' 'tiff2ps-PS3.sh' 'tiff2ps-EPS1.sh' 'tiff2pdf.sh' 'tiffcrop.sh')
+total_test=${#test_cases[@]}
+
+if [ -z "$TEST_ID" ];
+then
+  echo "requires a test case id"
+  exit 255
+fi
+
+
+if [ "$TEST_ID" -gt "$total_test" ];
+then
+  echo "invalid test id"
+  exit 255
+fi
+
+test_case=${test_cases[$TEST_ID]}
+cd $dir_name/src/test
+make $test_case > /dev/null 2>&1;
+./$test_case > /dev/null 2>&1;
+
+EXIT_CODE=$?
+
+if [[ EXIT_CODE -eq 0 ]]
+then
+  echo "PASS"
+else
+  echo "FAIL"
+fi;
+
+exit $EXIT_CODE
