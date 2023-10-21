@@ -13,7 +13,6 @@ mkdir dev-patch
 current_dir=$PWD
 mkdir -p $dir_name
 cd $dir_name
-mkdir dev-patch
 
 project_url=https://github.com/php/php-src
 bug_commit_id=aa9b0cc
@@ -28,6 +27,6 @@ git checkout $bug_commit_id
 cp $script_dir/test-case.phpt $dir_name/src/tests/lang/zend_throw_exception_001.phpt
 
 # copy developer fix
-cp -rf $script_dir/dev-fix $dir_name/dev-patch
+cp -rf $script_dir/dev-patch $dir_name
 
 ./buildconf

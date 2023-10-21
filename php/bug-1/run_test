@@ -17,13 +17,13 @@ then
 fi
 
 
-if [ "$TEST_ID" -ge "$total_test" ];
+if [ "$TEST_ID" -gt "$total_test" ];
 then
   echo "invalid test id"
   exit 255
 fi
 
-test_case=${test_cases[$TEST_ID-1]}
+test_case="tests/lang/"${test_cases[$TEST_ID-1]}
 cd $dir_name/src
 timeout 10 ./sapi/cli/php ./run-tests.php -p ./sapi/cli/php -q $test_case > /dev/null 2>&1;
 
