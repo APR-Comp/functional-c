@@ -1,0 +1,23 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+EXIT_CODE=1
+test_cases=$(cat $script_dir/pvt-test-cases)
+total_test=${#test_cases[@]}
+cd $dir_name/src
+
+
+./sapi/cli/php ./run-tests.php -p ./sapi/cli/php -q  $test_cases
+EXIT_CODE=$?
+if [[ EXIT_CODE -ne 0 ]]
+then
+  echo "FAIL PRIVATE"
+else
+  echo "PASS PRIVATE"
+fi;
+
+
+exit $EXIT_CODE

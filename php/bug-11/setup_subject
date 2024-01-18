@@ -1,0 +1,39 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+current_dir=$PWD
+mkdir -p $dir_name
+cd $dir_name
+mkdir dev-patch
+
+
+current_dir=$PWD
+mkdir -p $dir_name
+cd $dir_name
+mkdir dev-patch
+
+project_url=https://github.com/php/php-src
+checkout_commit_id=$1
+fix_commit_id=$2
+
+cd $dir_name
+git clone $project_url src
+cd src
+git checkout $checkout_commit_id
+git format-patch -1 $fix_commit_id
+mkdir $dir_name/dev-patch
+cp *.patch $dir_name/dev-patch/dev.patch
+filterdiff -i "*/ext/dom/node.c" $dir_name/dev-patch/dev.patch > $dir_name/dev-patch/fix.patch
+patch -R -f -p 1 < $dir_name/dev-patch/fix.patch
+
+mkdir -p $script_dir/dev-patch
+cp $dir_name/dev-patch/fix.patch $script_dir/dev-patch
+
+
+
+sed -i '169d' configure.ac
+sed -i '169i PHP_PROG_RE2C([1.0.1])' configure.ac
+./buildconf

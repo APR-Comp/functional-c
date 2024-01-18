@@ -1,0 +1,6 @@
+tests/find/exec-plus-last-file.log
+tests/find/used.log
+tests/find/printf_inode.log
+tests/find/files0-from.log
+tests/find/depth-unreadable-dir.log
+tests/find/many-dir-entries-vs-OOM.log

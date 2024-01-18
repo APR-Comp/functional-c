@@ -5,64 +5,63 @@ RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y
 
 # install experiment dependencies
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends  \
+    autoconf \
     automake \
     autopoint \
+    bear \
     bison \
+    build-essential \
     ca-certificates \
     flex \
+    g++-multilib \
+    gcc-multilib \
     gettext \
     git \
     gperf \
     libass-dev \
+    libbz2-dev \
+    libc6-dev-i386 \
     libfreetype6 \
     libfreetype6-dev \
+    libgdbm-dev \
+    libglib2.0-dev \
     libjpeg-dev \
+    libldap-dev \
     liblzma-dev \
+    libncurses-dev \
     libnuma-dev \
     libpciaccess-dev \
     libpython-dev \
     libpython3-dev \
+    libreadline-gplv2-dev \
     libsdl1.2-dev  \
+    libsqlite-dev \
     libsqlite3-dev \
+    libssl-dev \
     libtool \
     libvdpau-dev \
     libx11-dev \
+    libxcb-shm0-dev \
     libxcb-xfixes0-dev \
     libxcb1-dev \
-    libxcb-shm0-dev \
     libxml2-dev \
-    nasm \
+    make \
+    m4 \
+    mercurial \
     nano \
+    nasm \
+    patchutils \
     pkg-config \
     psmisc \
-    python3 \
-    texinfo \
-    xutils-dev \
-    yasm \
-    m4 \
-    libglib2.0-dev \
-    libldap-dev \
-    libbz2-dev \
-    libssl-dev \
-    libsqlite3-dev \
-    libxml2-dev \
-    libgdbm-dev \
-    subversion \
-    libc6-dev-i386 \
-    mercurial \
-    libncurses-dev \
-    libsqlite-dev \
-    libgdbm-dev \
-    libssl-dev \
-    libreadline-gplv2-dev \
-    libbz2-dev \
     psmisc \
-    libsqlite3-dev \
-    gcc-multilib \
-    g++-multilib \
-    tk-dev \
-    mercurial \
+    python3 \
+    re2c \
+    subversion \
     tcl-dev \
+    texinfo \
     tix-dev \
+    tk-dev \
     unzip \
-    wget
+    wget \
+    xutils-dev \
+    yasm

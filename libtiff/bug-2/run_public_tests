@@ -1,0 +1,34 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+EXIT_CODE=1
+mapfile -t test_cases < $script_dir/test-cases
+total_test=${#test_cases[@]}
+cd $dir_name/src/test
+
+
+for t in `seq 1 $total_test`;
+do
+  test_case=${test_cases[$t-1]}
+  make $test_case > /dev/null 2>&1;
+  ./$test_case > /dev/null 2>&1;
+  EXIT_CODE=$?
+  if [[ EXIT_CODE -ne 0 ]]
+  then
+    echo "FAIL", $test_case
+    break
+  else
+    echo "PASS", $test_case
+fi;
+done
+
+if [[ EXIT_CODE -ne 0 ]]
+  then
+    echo "FAIL PUBLIC"
+  else
+    echo "PASS PUBLIC"
+fi
+exit $EXIT_CODE

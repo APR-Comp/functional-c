@@ -1,0 +1,11 @@
+tests/find/opt-numeric-arg.log
+tests/find/printf_escape_c.log
+tests/find/refuse-noop.log
+tests/find/name-slash.log
+tests/find/printf_escapechars.log
+tests/find/newer.log
+tests/find/name-lbracket-literal.log
+tests/find/execdir-fd-leak.log
+tests/find/type_list.log
+tests/find/debug-missing-arg.log
+tests/find/inode-zero.log

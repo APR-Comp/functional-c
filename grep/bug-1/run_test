@@ -1,0 +1,49 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+TEST_ID=$1
+EXIT_CODE=1
+
+mapfile -t test_cases < $script_dir/test-cases
+total_test=${#test_cases[@]}
+
+if [ -z "$TEST_ID" ];
+then
+  echo "requires a test case id"
+  exit 255
+fi
+
+
+if [ "$TEST_ID" -gt "$total_test" ];
+then
+  echo "invalid test id"
+  exit 255
+fi
+
+test_case=${test_cases[$TEST_ID-1]}
+cd $dir_name/src/tests
+rm $test_case > /dev/null 2>&1
+timeout 120 make $test_case ;
+
+
+EXIT_CODE=$?
+
+if [[ EXIT_CODE -eq 0 ]]
+then
+  err=$(cat $test_case | grep 'FAIL'  | wc -l)
+  if [[ err -eq 0 ]]
+  then
+    echo "PASS", $test_case
+  else
+    echo "FAIL", $test_case
+    EXIT_CODE=2
+  fi;
+
+else
+  echo "FAIL", $test_case
+fi;
+
+exit $EXIT_CODE

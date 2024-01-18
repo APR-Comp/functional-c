@@ -8,5 +8,6 @@ cd $dir_name/src
 
 make clean
 make distclean
-
-
+rm CmakeCache.txt
+rm -rf $dir_name/src/.git
+rm -rf $dir_name/dev-patch

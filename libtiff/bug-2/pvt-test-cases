@@ -1,0 +1,10 @@
+tiffcp-thumbnail.sh
+tiffdump.sh
+tiffinfo.sh
+tiffcp-split.sh
+tiffcp-split-join.sh
+tiff2ps-PS1.sh
+tiff2ps-PS2.sh
+tiff2ps-PS3.sh
+tiff2ps-EPS1.sh
+tiff2pdf.sh

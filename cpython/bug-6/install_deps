@@ -1,0 +1,18 @@
+#!/bin/bash
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  autoconf \
+  automake \
+  autopoint \
+  bear \
+  bison \
+  build-essential \
+  libncurses-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libtool \
+  libxml2-dev \
+  make \
+  pkg-config \
+  re2c
+

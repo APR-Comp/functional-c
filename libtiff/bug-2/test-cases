@@ -1,0 +1,12 @@
+tiffcrop.sh
+ascii_tag
+long_tag
+short_tag
+strip_rw
+rewrite
+tiffcp-g3.sh
+tiffcp-g3-1d.sh
+tiffcp-g3-1d-fill.sh
+tiffcp-g3-2d.sh
+tiffcp-g3-2d-fill.sh
+tiffcp-g4.sh

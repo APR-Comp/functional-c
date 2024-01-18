@@ -15,15 +15,22 @@ mkdir -p $dir_name
 cd $dir_name
 mkdir dev-patch
 
-project_url=https://github.com/vadz/libtiff.git
-bug_commit_id=764dbba
-fix_commit_id=2e42d63
+project_url=https://gitlab.com/libtiff/libtiff
+checkout_commit_id=$1
+fix_commit_id=$2
 
 cd $dir_name
 git clone $project_url src
 cd src
-git checkout $bug_commit_id
+git checkout $checkout_commit_id
 git format-patch -1 $fix_commit_id
-cp *.patch $dir_name/dev-patch/fix.patch
-rm $dir_name/src/test/images/rgb-3c-16b.tiff
+mkdir $dir_name/dev-patch
+cp *.patch $dir_name/dev-patch/dev.patch
+filterdiff -x "*/test/**" $dir_name/dev-patch/dev.patch > $dir_name/dev-patch/fix.patch
+patch -R -f -p 1 < $dir_name/dev-patch/fix.patch
+
+mkdir -p $script_dir/dev-patch
+cp $dir_name/dev-patch/fix.patch $script_dir/dev-patch
+
+
 ./autogen.sh
